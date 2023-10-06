@@ -53,4 +53,4 @@ commands:
               }'
 
 orbs:
-  codeclimate-velocity: hmelenok/codeclimate-velocity-deploys@1.0.0
+  codeclimate-velocity-deploys: hmelenok/codeclimate-velocity-deploys@1.0.0
