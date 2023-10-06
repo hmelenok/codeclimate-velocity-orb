@@ -1,0 +1,52 @@
+commands:
+    register_deploy:
+        description: Register a new deployment on Codeclimate Velocity.
+        parameters:
+            branch:
+                description: The branch being deployed.
+                type: string
+            deployed_at:
+                description: The date-time of the deployment.
+                type: string
+            environment:
+                description: The environment to which the code is being deployed.
+                type: string
+            repository_url:
+                description: The URL of the repository being deployed.
+                type: string
+            revision:
+                description: The git revision being deployed.
+                type: string
+            services:
+                default: velocity,quality
+                description: The services being deployed.
+                type: string
+            token:
+                description: Codeclimate Velocity API token.
+                type: string
+            version:
+                description: Version of the deployment.
+                type: string
+        steps:
+            - run:
+                command: |
+                    curl --request POST \
+                      --url https://velocity.codeclimate.com/deploys \
+                      --header 'Accept: application/json' \
+                      --header 'Content-Type: application/json' \
+                      --data '{
+                        "branch": "<< parameters.branch >>",
+                        "environment": "<< parameters.environment >>",
+                        "services": "<< parameters.services >>",
+                        "version": "<< parameters.version >>",
+                        "revision": "<< parameters.revision >>",
+                        "token": "<< parameters.token >>",
+                        "repository_url": "<< parameters.repository_url >>",
+                        "deployed_at": "<< parameters.deployed_at >>"
+                      }'
+                name: Register deployment on Codeclimate Velocity
+description: Orb for registering a deployment on Codeclimate Velocity.
+orbs:
+    codeclimate-velocity-deploys: hmelenok/codeclimate-velocity-deploys@1.0.0
+version: 2.1
+
